@@ -5,6 +5,7 @@ const path = require('path');
 const SuperheroRouter = require("./routes/superhero.js");
 const app = express();
 
+app.use(cors());
 app.use(express.static('public'))
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
