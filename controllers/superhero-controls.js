@@ -10,13 +10,19 @@ const createFolder = require('../helpers/create-dir');
 
 const getSuperherosList = asyncWrapper(async (req, res, next) => {
   try {
-   
+    const limit = 5;
+    const offset = limit * (req.query.page - 1);
     const sups = await Sups.getSuperherosList();
+    const totalPages = Math.ceil(sups.length / limit);
+    const superheroesForOnePage = await Sups.getSuperherosList({
+      limit,
+      offset 
+    });
       return res.json({
       status: "success",
       code: HttpCode.OK,
       data: {
-        sups,
+        superheroesForOnePage, totalPages
       },
     });
   } catch (error) {
@@ -61,9 +67,8 @@ const addSuperhero = asyncWrapper(async (req, res, next) => {
   try {
 
     const superhero = await Sups.createSuperhero({...req.body});
-      const { id } = addSperhero;
-console.log('body :>> ', body);
-console.log('id :>> ', id);
+      const { id } = addSuperhero;
+console.log('superhero :>> ', superhero);
     return res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,

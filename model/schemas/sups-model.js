@@ -19,7 +19,7 @@ const supsSchema = new Schema({
     // }
   },
 
-
+  versionKey: false
 });
 
 const SupsModel = model("superhero", supsSchema);
