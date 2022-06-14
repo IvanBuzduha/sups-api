@@ -13,7 +13,8 @@ const getSuperherosList = asyncWrapper(async (req, res, next) => {
     const limit = 5;
     const offset = limit * (req.query.page - 1);
     const sups = await Sups.getSuperherosList();
-    const totalPages = Math.ceil(sups.length / limit);
+    const totalCount=sups.length
+    const totalPages = Math.ceil(totalCount / limit);
     const superheroesForOnePage = await Sups.getSuperherosList({
       limit,
       offset 
@@ -22,7 +23,7 @@ const getSuperherosList = asyncWrapper(async (req, res, next) => {
       status: "success",
       code: HttpCode.OK,
       data: {
-        superheroesForOnePage, totalPages
+        superheroesForOnePage, totalPages, totalCount
       },
     });
   } catch (error) {
