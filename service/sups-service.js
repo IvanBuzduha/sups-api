@@ -1,16 +1,16 @@
 const SuperheroModel = require("../model/schemas/sups-model");
 
-const getSuperherosList =async()=>{
-    return await SuperheroModel.find();
+const getSuperherosList = async () => {
+  return await SuperheroModel.find();
 };
 
 const getSuperheroById = async (id) => {
-  const superhero = await SuperheroModel.findById(id)
-if(!superhero){
-  throw new NotFound('Superhero with id  not found');
-}
+  const superhero = await SuperheroModel.findById(id);
+  if (!superhero) {
+    throw new NotFound("Superhero with id  not found");
+  }
 
-return superhero;
+  return superhero;
 };
 
 const removeSuperhero = async (id) => {
@@ -19,14 +19,26 @@ const removeSuperhero = async (id) => {
   return superhero;
 };
 
-const createSuperhero = async ({nickname, realName, originDescription, superpowers, catchPhrase}) => {
-  const superhero = new SuperheroModel({nickname, realName, originDescription, superpowers, catchPhrase});
+const createSuperhero = async ({
+  nickname,
+  realName,
+  originDescription,
+  superpowers,
+  catchPhrase,
+}) => {
+  const superhero = new SuperheroModel({
+    nickname,
+    realName,
+    originDescription,
+    superpowers,
+    catchPhrase,
+  });
   return await superhero.save();
 };
 
 const updateSuperhero = async (id, body) => {
   const superhero = await SuperheroModel.findByIdAndUpdate(
-    {_id: id },
+    { _id: id },
     { ...body },
     { new: true }
   );
@@ -35,7 +47,7 @@ const updateSuperhero = async (id, body) => {
 };
 
 const addImage = async (id, image) => {
-  return await SuperheroModel.updateMany({ _id:id },{ image });
+  return await SuperheroModel.updateOne({ _id: id }, { image });
 };
 
 module.exports = {

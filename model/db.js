@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-const uri = process.env.URI;
+const uri = process.env.MONGODB_URI;
 
 const db = mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -8,7 +8,6 @@ const db = mongoose.connect(uri, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 });
-
 
 mongoose.connection.on("connected", () => {
   console.log("Database connection to MONGODB successful");
